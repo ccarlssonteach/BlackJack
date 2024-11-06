@@ -1,23 +1,33 @@
 ﻿using BlackJack;
 
 Game game = new Game();
+bool playAgain = true;
+int playerWins = 0;
+int rounds = 0;
 
+while (playAgain)
+{
 
-game.IsInitialDealDone = false;
-game.PlayerDraw();
-game.DealerDraw();
-game.PlayerDraw();
-game.DealerDraw();
-game.IsInitialDealDone = true;
+    game.IsInitialDealDone = false;
+    game.PlayerDraw();
+    game.DealerDraw();
+    game.PlayerDraw();
+    game.DealerDraw();
+    game.IsInitialDealDone = true;
 
-PrintCards();
+    PrintCards();
 
-HandlePlayer();
+    HandlePlayer();
 
-HandleDealer();
+    HandleDealer();
 
-PrintResult();
+    PrintResult();
 
+    Console.WriteLine("Do you want to play again? [Y/n]");
+    playAgain = Console.ReadKey(true).Key != ConsoleKey.N;
+    game.Reset();
+    rounds++;
+}
 void PrintResult()
 {
     PrintCards(true);
@@ -25,9 +35,11 @@ void PrintResult()
     {
         case GameStatus.BlackJack:
             Console.WriteLine("Black Jack! Grattis, du vann!");
+            playerWins++;
             break;
         case GameStatus.Won:
             Console.WriteLine("Grattis du vann...");
+            playerWins++;
             break;
         case GameStatus.Lost:
             Console.WriteLine("Dealern vann");
@@ -76,6 +88,8 @@ void HandleDealer()
 void PrintCards(bool includeDealerHand = false)
 {
     Console.Clear();
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.WriteLine($"\t\tTotal Score, you won {playerWins} of {rounds} rounds");
     Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine($"You got: {game.Player.BestValue}");
     Console.WriteLine(game.Player);

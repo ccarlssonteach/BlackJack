@@ -42,7 +42,7 @@ public class Card
             SuitType.Club => "🦄",
             SuitType.Diamond => "🐱‍",
             SuitType.Heart => "👽",
-            SuitType.Spades => "🐸" ,
+            SuitType.Spades => "🐸",
             _ => throw new ApplicationException()
         };
 
